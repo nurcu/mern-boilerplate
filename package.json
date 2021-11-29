@@ -1,0 +1,20 @@
+{
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "nodemon": "^2.0.15"
+  },
+  "name": "mern-boilerplate",
+  "description": "MERN boilerplate",
+  "version": "0.1.0",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nurcu/mern-boilerplate.git"
+  },
+  "author": "NF",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nurcu/mern-boilerplate/issues"
+  },
+  "homepage": "https://github.com/nurcu/mern-boilerplate#readme"
+}
