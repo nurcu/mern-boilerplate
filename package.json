@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/nurcu/mern-boilerplate.git"
   },
-  "author": "NF",
+  "protocol": "NF",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nurcu/mern-boilerplate/issues"
