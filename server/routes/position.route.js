@@ -1,4 +1,5 @@
 const express = require('express');
+require("../services/db");
 const router = express.Router();
 
 // Position Model
@@ -17,7 +18,7 @@ const sendId = (res, err, data) => {
       console.log(err);
       return res.status(500).json({ success: false, error: `${err.name}: ${err.message}` })
     } else if (!data) {
-      return res.status(404).json({ success: false, error: "Warning: No data found." })
+      return res.status(400).json({ success: false, error: "Warning: No data found." })
     } else {
       return res.status(200).json({ success: true, id: data._id })
     }

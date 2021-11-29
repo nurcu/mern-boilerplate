@@ -38,7 +38,9 @@ export const GlobalProvider = (({children}) => {
 
         setTimeout(() => {
             Axios.get("http://localhost:4000/positions").then((response) => {
-                dispatch({type: 'INITIAL_DATA', payload: response.data})
+                if (response.status == 200){
+                    dispatch({type: 'INITIAL_DATA', payload: response.data.data});
+                }
             });  
         },500)
     }
@@ -48,6 +50,7 @@ export const GlobalProvider = (({children}) => {
             type: 'EDIT_POSITION',
             payload: position,
         })
+        
     }
      
     return(

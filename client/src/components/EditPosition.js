@@ -27,7 +27,7 @@ const EditPosition = (props) => {
         setSelectedPosition(selectedPosition);
     }, [currentPositionId, positions])
 
-    const updateFood = function (id) {
+    const updatePosition = function (id) {
         const {portfolio, protocol, asset, assetName, assetType} = selectedPosition
 
         Axios.put("http://localhost:4000/positions", {
@@ -44,7 +44,7 @@ const EditPosition = (props) => {
 
         editPosition(selectedPosition);
         history.push('/');
-        updateFood(currentPositionId);
+        updatePosition(currentPositionId);
     }
 
     const onPortfolioChange = function(e){
