@@ -11,11 +11,20 @@
             "type": "node-terminal"
         },
         {
+            "name": "Run server 2",
+            "command": "cd server.2 && yarn dev",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "name": "Run web",
             "command": "cd client && yarn start",
             "request": "launch",
             "type": "node-terminal"
         }
+    ],
+    "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
     ]
-    
 }

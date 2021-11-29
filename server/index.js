@@ -1,19 +1,11 @@
 const express = require("express");
-const mongoose = require("mongoose");
+require("./services/db");
 const cors = require("cors");
 const PositionModel = require("./models/position");
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-
-mongoose.connect(
-    "mongodb://localhost:27017/curcumy05",
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }
-);
 
 app.post("/positions", async (req, res) => {
     const portfolio = req.body.portfolio;
