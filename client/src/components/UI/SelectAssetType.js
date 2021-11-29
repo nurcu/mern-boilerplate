@@ -8,7 +8,7 @@ const SelectAssetType = (props) => {
                     <option value="" selected disabled>
                         Asset Type
                     </option>
-                    <option selected value="token">Token</option>
+                    <option value="token">Token</option>
                     <option value="pool">Pool</option>
                  
                 </select>

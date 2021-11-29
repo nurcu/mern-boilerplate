@@ -1,7 +1,7 @@
 export const AppReducer =  (state, action) => {
 
     switch (action.type) {
-        case 'INITIAL_DATA':
+        case 'INITIAL_DATA':{
             const data = []
             action.payload.forEach((app) => {
                 data.unshift(app);
@@ -9,7 +9,7 @@ export const AppReducer =  (state, action) => {
             return {
                 positions: data
             }
-
+        }
         case 'REMOVE_POSITION':
             return {
                 positions: state.positions.filter(position => {
@@ -23,7 +23,7 @@ export const AppReducer =  (state, action) => {
                 positions: [action.payload, ...state.positions]
             }
 
-        case 'EDIT_POSITION':
+        case 'EDIT_POSITION':{
             const updatePosition = action.payload;
             const updatePositions = state.positions.map(position => {
                 if(position._id === updatePosition._id){
@@ -35,6 +35,7 @@ export const AppReducer =  (state, action) => {
             return{
                 positions: updatePositions
             }
+        }
         default:
             return state
     }

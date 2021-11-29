@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect(
-    "mongodb://localhost:27017/curcumy06",
+    "mongodb://localhost:27017/curcumy04",
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -17,8 +17,8 @@ mongoose.connect(
 
 app.post("/insert", async (req, res) => {
     const positionPortfolio = req.body.positionPortfolio;
-    const positionAsset = req.body.positionAsset;
     const positionProtocol = req.body.positionProtocol;
+    const positionAsset = req.body.positionAsset;
     const positionAssetType = req.body.positionAssetType
     const position = new PositionModel({positionPortfolio: positionPortfolio, positionAsset: positionAsset, positionProtocol: positionProtocol, positionAssetType: positionAssetType});
 
@@ -31,7 +31,6 @@ app.post("/insert", async (req, res) => {
 });
 
 app.get("/read", async (req, res) => {
-    // FoodModel.find({$where: {foodName:  "Apple"}}, )
     PositionModel.find({}, (err, results) => {
         if (err) {
             res.send(err);

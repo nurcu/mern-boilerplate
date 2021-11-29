@@ -14,7 +14,7 @@ const AddPosition = () => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     //position title
-    const [positionPortfolio, dispatchPositionTitle] = useReducer(
+    const [positionPortfolio, dispatchPositionPortfolio] = useReducer(
         (state, action) => {
             if(action.type === "POSITION_INPUT"){
                 return {value: action.val, isValid: action.val.length > 5}
@@ -104,8 +104,8 @@ const AddPosition = () => {
         history.push("/");
     };
 
-    const onPositionTitleChange = function (e) {
-        dispatchPositionTitle({type: "POSITION_INPUT", val: e.target.value} )
+    const onPortfolioChange = function (e) {
+        dispatchPositionPortfolio({type: "POSITION_INPUT", val: e.target.value} )
     };
 
     const onProtocolChange = function (e) {
@@ -128,7 +128,7 @@ const AddPosition = () => {
                 value={positionPortfolio.value}
                 type="text"
                 placeholder="enter position title"
-                onChange={onPositionTitleChange}
+                onChange={onPortfolioChange}
                 className={`${positionPortfolio.isValid === false ? styles.invalid : ''}`}
             />
 
