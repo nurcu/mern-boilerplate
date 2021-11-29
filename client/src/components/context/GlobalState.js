@@ -15,7 +15,9 @@ export const GlobalProvider = (({children}) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
         useEffect(() => {
             Axios.get("http://localhost:4000/positions").then((response) => {
-                dispatch({type: 'INITIAL_DATA', payload: response.data})
+                if (response.status == 200){
+                    dispatch({type: 'INITIAL_DATA', payload: response.data.data});
+                }
             });
         }, []);
 
