@@ -46,12 +46,14 @@ app.put("/positions", async (req, res) => {
     const portfolio = req.body.portfolio;
     const protocol = req.body.protocol;
     const asset = req.body.asset;
+    const assetName = req.body.assetName;
     const assetType = req.body.assetType;
     try {
         await PositionModel.findById(id, (err, updatePosition) => {
             updatePosition.portfolio = portfolio;
             updatePosition.protocol = protocol;
             updatePosition.asset = asset;
+            updatePosition.assetName = assetName;
             updatePosition.assetType = assetType;
             updatePosition.save();
             res.send("updated");

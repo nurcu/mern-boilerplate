@@ -84,8 +84,8 @@ const AddPosition = () => {
             setIsFormValid(
                 portfolioIsValid &&
                 protocolIsValid &&
-                assetNameIsValid &&
                 assetIsValid &&
+                assetNameIsValid &&
                 assetTypeIsValid !== false
             );
         }, 1000);
