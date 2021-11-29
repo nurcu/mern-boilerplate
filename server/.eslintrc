@@ -11,11 +11,12 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": "12",
+        "ecmaVersion": 12,
         "sourceType": "module"
     },
     "plugins": [
     ],
     "rules": {
+        "react/prop-types": "off"
     }
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../../styles/UI/SelectAssetType/SelectAssetType.module.css'
 
 const SelectAssetType = (props) => {

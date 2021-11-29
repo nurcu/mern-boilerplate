@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../../styles/UI/Button/Button.module.css';
 
 const Button = (props) => {
