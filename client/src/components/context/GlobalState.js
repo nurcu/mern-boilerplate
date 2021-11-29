@@ -14,7 +14,7 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = (({children}) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
         useEffect(() => {
-            Axios.get("http://localhost:3004/read").then((response) => {
+            Axios.get("http://localhost:4000/positions").then((response) => {
                 dispatch({type: 'INITIAL_DATA', payload: response.data})
             });
         }, []);
@@ -35,7 +35,7 @@ export const GlobalProvider = (({children}) => {
         })
 
         setTimeout(() => {
-            Axios.get("http://localhost:3004/read").then((response) => {
+            Axios.get("http://localhost:4000/positions").then((response) => {
                 dispatch({type: 'INITIAL_DATA', payload: response.data})
             });  
         },500)

@@ -11,10 +11,11 @@ import SelectAssetType from './UI/SelectAssetType';
 
 const EditPosition = (props) => {
     const [selectedPosition, setSelectedPosition] = useState({
-        positionPortfolio: '',
-        positionProtocol: '',
-        positionAsset: 0,
-        positionAssetType: ''
+        portfolio: '',
+        protocol: '',
+        asset: '',
+        assetName: '',
+        assetType: ''
     })
     const { positions, editPosition } = useContext(GlobalContext);
     const history = useHistory();
@@ -27,37 +28,42 @@ const EditPosition = (props) => {
     }, [currentPositionId, positions])
 
     const updateFood = function (id) {
-        const {positionPortfolio, positionProtocol, positionAsset, positionAssetType} = selectedPosition
+        const {portfolio, protocol, asset, assetName, assetType} = selectedPosition
 
-        Axios.put("http://localhost:3004/update", {
+        Axios.put("http://localhost:4000/positions", {
             id: id,
-            positionPortfolio: positionPortfolio,
-            positionProtocol: positionProtocol,
-            positionAsset: Number(positionAsset),
-            positionAssetType: positionAssetType
+            portfolio: portfolio,
+            protocol: protocol,
+            asset: asset,
+            assetName: assetName,
+            assetType: assetType
         });
     };
 
     const onSubmit = function(e){
 
-        editPosition(selectedPosition)
-        history.push('/')
-        updateFood(currentPositionId)
+        editPosition(selectedPosition);
+        history.push('/');
+        updateFood(currentPositionId);
     }
 
-    const onPositionNameChange = function(e){
+    const onPortfolioChange = function(e){
         setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
     }
 
-    const onPositionProtocolChange = function(e){
+    const onProtocolChange = function(e){
         setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
     }
 
-    const onPositionAssetChange = function(e){
+    const onAssetChange = function(e){
         setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
     }
 
-    const onPositionAssetTypeChange = function(e){
+    const onAssetNameChange = function(e){
+        setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
+    }
+
+    const onAssetTypeChange = function(e){
         setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
     }
 
@@ -65,33 +71,43 @@ const EditPosition = (props) => {
         <form onSubmit={onSubmit} className={styles.form}>
             <UserFormField
                 label="Position Title"
-                name="positionPortfolio"
-                value={selectedPosition.positionPortfolio}
+                name="portfolio"
+                value={selectedPosition.portfolio}
                 type="text"
-                placeholder="enter position title"
-                onChange={onPositionNameChange}
+                placeholder="enter position portfolio"
+                onChange={onPortfolioChange}
             />
 
             <UserFormField
                 label="Protocol"
-                name="positionProtocol"
-                value={selectedPosition.positionProtocol}
+                name="protocol"
+                value={selectedPosition.protocol}
                 type="text"
-                placeholder="enter position Protocol"
-                onChange={onPositionProtocolChange}
+                placeholder="enter position protocol"
+                onChange={onProtocolChange}
 
             />
 
             <UserFormField
                 label="Asset"
-                name="positionAsset"
-                value={selectedPosition.positionAsset}
+                name="asset"
+                value={selectedPosition.asset}
                 type="text"
                 placeholder="enter position asset"
-                onChange={onPositionAssetChange}
+                onChange={onAssetChange}
 
             />
-            <SelectAssetType name="positionAssetType" onChange={onPositionAssetTypeChange} value={selectedPosition.positionAssetType}/>
+            <UserFormField
+                label="AssetName"
+                name="assetName"
+                value={selectedPosition.assetName}
+                type="text"
+                placeholder="enter position asset name"
+                onChange={onAssetNameChange}
+
+            />
+            
+            <SelectAssetType name="assetType" onChange={onAssetTypeChange} value={selectedPosition.assetType}/>
 
             <div className={styles.buttons}>
                 <Button type="submit" className={styles.edit_position}> <BsPencil/> Done</Button>

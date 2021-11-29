@@ -12,7 +12,7 @@ const PositionList = () => {
 
     const removeHandler = (id) => {
         removePosition(id);
-        Axios.delete(`http://localhost:3004/delete/${id}`);
+        Axios.delete(`http://localhost:4000/positions/${id}`);
     };
 
     return (
@@ -21,8 +21,8 @@ const PositionList = () => {
                 <tr>
                     <th className={styles.title}>Portfolio</th>
                     <th className={styles.protocol}>Protocol</th>
+                    <th className={styles.assetName}>AssetName</th>
                     <th className={styles.assetType}>AssetType</th>
-                    <th className={styles.asset}>Asset</th>
                     <th className={styles.asset}>Actions</th>
                 </tr>
             </thead>
@@ -31,10 +31,10 @@ const PositionList = () => {
                     {positions.map((position) => {
                         return (
                             <tr key={position._id}>
-                                <td>{position.positionPortfolio}</td>
-                                <td>{position.positionProtocol}</td>
-                                <td>{position.positionAssetType}</td>
-                                <td>{position.positionAsset}</td>
+                                <td>{position.portfolio}</td>
+                                <td>{position.protocol}</td>
+                                <td>{position.assetName}</td>
+                                <td>{position.assetType}</td>
                                 <td>
                                     <div className="actions">
                                         <Link

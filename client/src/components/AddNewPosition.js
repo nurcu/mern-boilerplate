@@ -14,7 +14,7 @@ const AddPosition = () => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     //position title
-    const [positionPortfolio, dispatchPositionPortfolio] = useReducer(
+    const [portfolio, dispatchPortfolio] = useReducer(
         (state, action) => {
             if(action.type === "POSITION_INPUT"){
                 return {value: action.val, isValid: action.val.length > 5}
@@ -26,7 +26,7 @@ const AddPosition = () => {
     )
 
     //position asset
-    const [positionProtocol, dispatchPositionProtocol] = useReducer(
+    const [protocol, dispatchProtocol] = useReducer(
         (state, action) => {
             if(action.type === "POSITION_INPUT"){
                 return {value: action.val, isValid: action.val.length > 5}
@@ -38,7 +38,7 @@ const AddPosition = () => {
     )
 
     //positionasset
-    const [positionAsset, dispatchPositionAsset] = useReducer(
+    const [asset, dispatchAsset] = useReducer(
         (state, action) => {
             if(action.type === "POSITION_INPUT"){
                 return {value: action.val, isValid: action.val.length > 5}
@@ -49,8 +49,19 @@ const AddPosition = () => {
         {value: "", isValid: null}
     )
 
-    //positionSelect
-    const [positionAssetType, dispatchPositionAssetType] = useReducer(
+    //positionassetname
+    const [assetName, dispatchAssetName] = useReducer(
+        (state, action) => {
+            if(action.type === "POSITION_INPUT"){
+                return {value: action.val, isValid: true}
+            }
+            return {value: "", isValid: true}
+        },
+        {value: "", isValid: true}
+    )
+
+    //assetType
+    const [assetType, dispatchAssetType] = useReducer(
         (state, action) => {
             if(action.type === 'POSITION_INPUT'){
                 return {value: action.val, isValid: action.val !== ''}
@@ -61,26 +72,28 @@ const AddPosition = () => {
         {value: '', isValid: false}
     )
 
-    const { isValid: positionPortfolioIsValid} = positionPortfolio;
-    const { isValid: positionProtocolIsValid} = positionProtocol;
-    const { isValid: positionAssetIsValid} = positionAsset;
-    const { isValid: positionAssetTypeIsValid} = positionAssetType;
+    const { isValid: portfolioIsValid} = portfolio;
+    const { isValid: protocolIsValid} = protocol;
+    const { isValid: assetIsValid} = asset;
+    const { isValid: assetNameIsValid} = assetName;
+    const { isValid: assetTypeIsValid} = assetType;
 
     //useEffect
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsFormValid(
-                positionPortfolioIsValid &&
-                positionProtocolIsValid &&
-                positionAssetIsValid &&
-                positionAssetTypeIsValid !== false
+                portfolioIsValid &&
+                protocolIsValid &&
+                assetNameIsValid &&
+                assetIsValid &&
+                assetTypeIsValid !== false
             );
         }, 1000);
 
         return () => {
             clearTimeout(timer);
         };
-    }, [positionPortfolioIsValid, positionProtocolIsValid, positionAssetIsValid, positionAssetTypeIsValid]);
+    }, [portfolioIsValid, protocolIsValid, assetIsValid, assetNameIsValid, assetTypeIsValid]);
 
 
     const onSubmit = function (e) {
@@ -88,66 +101,76 @@ const AddPosition = () => {
         if(isFormValid !== true) return
 
         const newPosition = {
-            positionPortfolio: positionPortfolio.value,
-            positionProtocol: positionProtocol.value,
-            positionAsset: positionAsset.value,
-            positionAssetType: positionAssetType.value,
+            portfolio: portfolio.value,
+            protocol: protocol.value,
+            asset: asset.value,
+            assetName: assetName.value,
+            assetType: assetType.value,
         };
 
-        Axios.post("http://localhost:3004/insert", {
-            positionPortfolio: positionPortfolio.value,
-            positionAsset: positionAsset.value,
-            positionProtocol: positionProtocol.value,
-            positionAssetType: positionAssetType.value,
-        });
+        Axios.post("http://localhost:4000/positions", newPosition);
         addPosition(newPosition);
         history.push("/");
     };
 
     const onPortfolioChange = function (e) {
-        dispatchPositionPortfolio({type: "POSITION_INPUT", val: e.target.value} )
+        dispatchPortfolio({type: "POSITION_INPUT", val: e.target.value} )
     };
 
     const onProtocolChange = function (e) {
-        dispatchPositionProtocol({type: 'POSITION_INPUT', val: e.target.value});
+        dispatchProtocol({type: 'POSITION_INPUT', val: e.target.value});
     };
 
     const onAssetChange = function (e) {
-        dispatchPositionAsset({type: "POSITION_INPUT", val: e.target.value})
+        dispatchAsset({type: "POSITION_INPUT", val: e.target.value})
+        
+    };
+
+    const onAssetNameChange = function (e) {
+        dispatchAssetName({type: "POSITION_INPUT", val: e.target.value})
         
     };
 
     const onAssetTypeChange = function (e) {
-        dispatchPositionAssetType({type: "POSITION_INPUT", val: e.target.value});
+        dispatchAssetType({type: "POSITION_INPUT", val: e.target.value});
     };
 
     return (
         <form onSubmit={onSubmit} className={`${styles.form}`}>
             <PositionFormField
                 label="Portfolio"
-                value={positionPortfolio.value}
+                value={portfolio.value}
                 type="text"
-                placeholder="enter position title"
+                placeholder="enter position portfolio"
                 onChange={onPortfolioChange}
-                className={`${positionPortfolio.isValid === false ? styles.invalid : ''}`}
+                className={`${portfolio.isValid === false ? styles.invalid : ''}`}
             />
 
             <PositionFormField
                 label="Protocol"
-                value={positionProtocol.value}
+                value={protocol.value}
                 type="text"
-                placeholder="enter position Protocol"
+                placeholder="enter position protocol"
                 onChange={onProtocolChange}
-                className={`${positionProtocol.isValid === false ? styles.invalid : ''}`}
+                className={`${protocol.isValid === false ? styles.invalid : ''}`}
             />
 
             <PositionFormField
                 label="Asset"
-                value={positionAsset.value}
+                value={asset.value}
                 type="text"
                 placeholder="enter position asset"
                 onChange={onAssetChange}
-                className={`${positionAsset.isValid === false ? styles.invalid : ''}`}
+                className={`${asset.isValid === false ? styles.invalid : ''}`}
+            />
+
+            <PositionFormField
+                label="AssetName"
+                value={assetName.value}
+                type="text"
+                placeholder="enter position asset name"
+                onChange={onAssetNameChange}
+                className={`${assetName.isValid === false ? styles.invalid : ''}`}
             />
 
             <SelectAssetType onChange={onAssetTypeChange}/>
@@ -157,7 +180,7 @@ const AddPosition = () => {
                     Submit
                 </Button>
                 <Link to="/" className={styles.link}>
-                    <GiCancel /> Cancel
+                    <GiCancel />Cancel
                 </Link>
             </div>
         </form>

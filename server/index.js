@@ -8,19 +8,20 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect(
-    "mongodb://localhost:27017/curcumy04",
+    "mongodb://localhost:27017/curcumy05",
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }
 );
 
-app.post("/insert", async (req, res) => {
-    const positionPortfolio = req.body.positionPortfolio;
-    const positionProtocol = req.body.positionProtocol;
-    const positionAsset = req.body.positionAsset;
-    const positionAssetType = req.body.positionAssetType
-    const position = new PositionModel({positionPortfolio: positionPortfolio, positionAsset: positionAsset, positionProtocol: positionProtocol, positionAssetType: positionAssetType});
+app.post("/positions", async (req, res) => {
+    const portfolio = req.body.portfolio;
+    const protocol = req.body.protocol;
+    const asset = req.body.asset;
+    const assetName = req.body.assetName;
+    const assetType = req.body.assetType
+    const position = new PositionModel({portfolio: portfolio, asset: asset, protocol: protocol, assetType: assetType});
 
     try {
         await position.save();
@@ -30,7 +31,7 @@ app.post("/insert", async (req, res) => {
     }
 });
 
-app.get("/read", async (req, res) => {
+app.get("/positions", async (req, res) => {
     PositionModel.find({}, (err, results) => {
         if (err) {
             res.send(err);
@@ -40,18 +41,18 @@ app.get("/read", async (req, res) => {
     });
 });
 
-app.put("/update", async (req, res) => {
+app.put("/positions", async (req, res) => {
     const id = req.body.id;
-    const positionPortfolio = req.body.positionPortfolio;
-    const positionProtocol = req.body.positionProtocol;
-    const positionAsset = req.body.positionAsset;
-    const positionAssetType = req.body.positionAssetType;
+    const portfolio = req.body.portfolio;
+    const protocol = req.body.protocol;
+    const asset = req.body.asset;
+    const assetType = req.body.assetType;
     try {
         await PositionModel.findById(id, (err, updatePosition) => {
-            updatePosition.positionPortfolio = positionPortfolio;
-            updatePosition.positionProtocol = positionProtocol;
-            updatePosition.positionAsset = positionAsset;
-            updatePosition.positionAssetType = positionAssetType;
+            updatePosition.portfolio = portfolio;
+            updatePosition.protocol = protocol;
+            updatePosition.asset = asset;
+            updatePosition.assetType = assetType;
             updatePosition.save();
             res.send("updated");
         });
@@ -60,12 +61,12 @@ app.put("/update", async (req, res) => {
     }
 });
 
-app.delete("/delete/:id", async (req, res) => {
+app.delete("/positions/:id", async (req, res) => {
     const id = req.params.id;
     await PositionModel.findByIdAndRemove(id).exec();
     res.send("deleted");
 });
 
-app.listen(3004, () => {
-    console.log("server runnig on port 3004");
+app.listen(4000, () => {
+    console.log("server runnig on port 4000");
 });
