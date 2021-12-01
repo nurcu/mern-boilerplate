@@ -1,9 +1,8 @@
 import React from 'react';
-import styles from "../../styles/UI/UserFormField/UserFormField.module.css";
 
 const PositionFormField = (props) => {
     return (
-        <div className={styles.form_control}>
+        <div>
             <label>{props.label}</label>
             <input
                 type={props.type}
@@ -11,7 +10,7 @@ const PositionFormField = (props) => {
                 onChange={props.onChange}
                 placeholder={props.placeholder}
                 name={props.name}
-                className={props.className}
+                isValid={props.isValid}
             />
         </div>
     );

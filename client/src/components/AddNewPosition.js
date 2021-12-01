@@ -2,7 +2,6 @@ import React, { useState, useContext, useReducer, useEffect } from "react";
 import { GlobalContext } from "./context/GlobalState";
 import { Link, useHistory } from "react-router-dom";
 import PositionDataService from "../services/position.service";
-import styles from "../styles/AddNewPosition/AddNewPosition.module.css";
 import { GiCancel } from "react-icons/gi";
 import Button from "./UI/Button";
 import PositionFormField from "./UI/PositionFormField";
@@ -136,14 +135,14 @@ const AddPosition = () => {
     };
 
     return (
-        <form onSubmit={onSubmit} className={`${styles.form}`}>
+        <form onSubmit={onSubmit}>
             <PositionFormField
                 label="Portfolio"
                 value={portfolio.value}
                 type="text"
                 placeholder="enter position portfolio"
                 onChange={onPortfolioChange}
-                className={`${portfolio.isValid === false ? styles.invalid : ''}`}
+                isValid={portfolio.isValid === false}
             />
 
             <PositionFormField
@@ -152,7 +151,7 @@ const AddPosition = () => {
                 type="text"
                 placeholder="enter position protocol"
                 onChange={onProtocolChange}
-                className={`${protocol.isValid === false ? styles.invalid : ''}`}
+                isValid={protocol.isValid === false}
             />
 
             <PositionFormField
@@ -161,7 +160,7 @@ const AddPosition = () => {
                 type="text"
                 placeholder="enter position asset"
                 onChange={onAssetChange}
-                className={`${asset.isValid === false ? styles.invalid : ''}`}
+                isValid={asset.isValid === false}
             />
 
             <PositionFormField
@@ -170,16 +169,16 @@ const AddPosition = () => {
                 type="text"
                 placeholder="enter position asset name"
                 onChange={onAssetNameChange}
-                className={`${assetName.isValid === false ? styles.invalid : ''}`}
+                isValid={assetName.isValid === false}
             />
 
             <SelectAssetType onChange={onAssetTypeChange}/>
 
-            <div className={styles.buttons}>
-                <Button type="submit" className={`${isFormValid ? styles.submit : styles.disabled}`}>
+            <div>
+                <Button type="submit" isValid={isFormValid}>
                     Submit
                 </Button>
-                <Link to="/" className={styles.link}>
+                <Link to="/">
                     <GiCancel />Cancel
                 </Link>
             </div>

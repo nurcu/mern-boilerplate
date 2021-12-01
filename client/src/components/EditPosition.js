@@ -1,7 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { GlobalContext } from "./context/GlobalState";
 import { Link, useHistory } from 'react-router-dom';
-import styles from '../styles/EditPosition/EditPosition.module.css';
 import { BsPencil } from 'react-icons/bs';
 import { GiCancel } from 'react-icons/gi';
 import Button from  './UI/Button';
@@ -59,7 +58,7 @@ const EditPosition = (props) => {
     }
 
     return(
-        <form onSubmit={onSubmit} className={styles.form}>
+        <form onSubmit={onSubmit}>
             <UserFormField
                 label="Position Title"
                 name="portfolio"
@@ -100,9 +99,9 @@ const EditPosition = (props) => {
             
             <SelectAssetType name="assetType" onChange={onAssetTypeChange} value={selectedPosition.assetType}/>
 
-            <div className={styles.buttons}>
-                <Button type="submit" className={styles.edit_position}> <BsPencil/> Done</Button>
-                <Link to="/" className={styles.link}> <GiCancel/> Cancel</Link>
+            <div>
+                <Button type="submit"> <BsPencil/> Done</Button>
+                <Link to="/"> <GiCancel/> Cancel</Link>
             </div>
         </form>
     )
