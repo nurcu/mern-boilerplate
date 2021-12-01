@@ -1,7 +1,7 @@
 import React, { useState, useContext, useReducer, useEffect } from "react";
 import { GlobalContext } from "./context/GlobalState";
 import { Link, useHistory } from "react-router-dom";
-import Axios from "axios";
+import PositionDataService from "../services/position.service";
 import styles from "../styles/AddNewPosition/AddNewPosition.module.css";
 import { GiCancel } from "react-icons/gi";
 import Button from "./UI/Button";
@@ -108,7 +108,7 @@ const AddPosition = () => {
             assetType: assetType.value,
         };
 
-        Axios.post("http://localhost:4000/positions", newPosition);
+        PositionDataService.create(newPosition);
         addPosition(newPosition);
         history.push("/");
     };

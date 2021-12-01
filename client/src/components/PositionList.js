@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { GlobalContext } from "./context/GlobalState";
 import { BsPencil } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
-import Axios from "axios";
+import PositionDataService from "../services/position.service";
 import styles from "../styles/PositionList/PositionList.module.css";
 import Button from "./UI/Button";
 
@@ -12,7 +12,7 @@ const PositionList = () => {
 
     const removeHandler = (id) => {
         removePosition(id);
-        Axios.delete(`http://localhost:4000/positions/${id}`);
+        PositionDataService.delete(id);
     };
 
     return (

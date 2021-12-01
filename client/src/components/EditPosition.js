@@ -6,7 +6,7 @@ import { BsPencil } from 'react-icons/bs';
 import { GiCancel } from 'react-icons/gi';
 import Button from  './UI/Button';
 import UserFormField from './UI/PositionFormField';
-import Axios from "axios";
+import PositionDataService from "../services/position.service";
 import SelectAssetType from './UI/SelectAssetType';
 
 const EditPosition = (props) => {
@@ -28,16 +28,7 @@ const EditPosition = (props) => {
     }, [currentPositionId, positions])
 
     const updatePosition = function (id) {
-        const {portfolio, protocol, asset, assetName, assetType} = selectedPosition
-
-        Axios.put("http://localhost:4000/positions", {
-            id: id,
-            portfolio: portfolio,
-            protocol: protocol,
-            asset: asset,
-            assetName: assetName,
-            assetType: assetType
-        });
+        PositionDataService.update(id, selectedPosition);
     };
 
     const onSubmit = function(e){

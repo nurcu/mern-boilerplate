@@ -1,7 +1,4 @@
 {
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
   "name": "mern-boilerplate",
   "description": "MERN boilerplate",
   "version": "0.1.0",
