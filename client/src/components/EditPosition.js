@@ -1,110 +1,43 @@
-import React, {useState, useContext, useEffect} from 'react';
-import { GlobalContext } from "./context/GlobalState";
-import { Link, useHistory } from 'react-router-dom';
-import { BsPencil } from 'react-icons/bs';
-import { GiCancel } from 'react-icons/gi';
-import Button from  './UI/Button';
-import UserFormField from './UI/PositionFormField';
+import CreatePosition from "./CreatePosition";
 import PositionDataService from "../services/position.service";
-import SelectAssetType from './UI/SelectAssetType';
 
-const EditPosition = (props) => {
-    const [selectedPosition, setSelectedPosition] = useState({
-        portfolio: '',
-        protocol: '',
-        asset: '',
-        assetName: '',
-        assetType: ''
-    })
-    const { positions, editPosition } = useContext(GlobalContext);
-    const history = useHistory();
-    const currentPositionId = props.match.params.id;
-
-    useEffect(() => {
-        const positionId = currentPositionId;
-        const selectedPosition = positions.find(position => position._id === positionId)
-        setSelectedPosition(selectedPosition);
-    }, [currentPositionId, positions])
-
-    const updatePosition = function (id) {
-        PositionDataService.update(id, selectedPosition);
-    };
-
-    const onSubmit = function(e){
-
-        editPosition(selectedPosition);
-        history.push('/');
-        updatePosition(currentPositionId);
+class EditPosition extends CreatePosition {
+    constructor(props) {
+        super(props);
+        this.saveLabel = "Save";
     }
 
-    const onPortfolioChange = function(e){
-        setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
+    componentDidMount() {
+        PositionDataService.get(this.props.match.params.id)
+            .then(res => {
+                this.setState(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
-    const onProtocolChange = function(e){
-        setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
+
+
+    onSubmit(e) {
+        e.preventDefault()
+
+        PositionDataService.update(this.props.match.params.id, this.state).then(res => {
+            if (res.status === 500) {
+                console.log(res.data);
+            } else if (res.status === 200 && res.data.success === true) {
+                console.log(res.data.id);
+            } else if (res.status === 200 && res.data.success !== true) {
+                console.log("Error updated new data because : "+res.data.error);
+            } else {
+                console.log("Server error with : "+res.data);
+            }
+        }).catch(err => console.warn(err));
+
+        // Redirect to Student List
+        this.props.history.push('/list-position')
     }
 
-    const onAssetChange = function(e){
-        setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
-    }
-
-    const onAssetNameChange = function(e){
-        setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
-    }
-
-    const onAssetTypeChange = function(e){
-        setSelectedPosition({...selectedPosition,[e.target.name]: e.target.value})
-    }
-
-    return(
-        <form onSubmit={onSubmit}>
-            <UserFormField
-                label="Position Title"
-                name="portfolio"
-                value={selectedPosition.portfolio}
-                type="text"
-                placeholder="enter position portfolio"
-                onChange={onPortfolioChange}
-            />
-
-            <UserFormField
-                label="Protocol"
-                name="protocol"
-                value={selectedPosition.protocol}
-                type="text"
-                placeholder="enter position protocol"
-                onChange={onProtocolChange}
-
-            />
-
-            <UserFormField
-                label="Asset"
-                name="asset"
-                value={selectedPosition.asset}
-                type="text"
-                placeholder="enter position asset"
-                onChange={onAssetChange}
-
-            />
-            <UserFormField
-                label="AssetName"
-                name="assetName"
-                value={selectedPosition.assetName}
-                type="text"
-                placeholder="enter position asset name"
-                onChange={onAssetNameChange}
-
-            />
-            
-            <SelectAssetType name="assetType" onChange={onAssetTypeChange} value={selectedPosition.assetType}/>
-
-            <div>
-                <Button type="submit"> <BsPencil/> Done</Button>
-                <Link to="/"> <GiCancel/> Cancel</Link>
-            </div>
-        </form>
-    )
 }
 
 export default EditPosition
