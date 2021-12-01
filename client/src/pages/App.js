@@ -1,4 +1,3 @@
-import "../styles/App/App.css";
 import Home from '../components/Home';
 import AddNewPosition from '../components/AddNewPosition';
 import EditPosition from '../components/EditPosition';

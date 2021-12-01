@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import Axios from "axios";
 import {AppReducer} from './AppReducer';
+import PositionDataService from "../../services/position.service";
 
 //initial state;
 const initialState = {
@@ -14,7 +14,7 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = (({children}) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
         useEffect(() => {
-            Axios.get("http://localhost:4000/positions").then((response) => {
+            PositionDataService.getAll().then((response) => {
                 if (response.status == 200){
                     dispatch({type: 'INITIAL_DATA', payload: response.data.data});
                 }
@@ -37,7 +37,7 @@ export const GlobalProvider = (({children}) => {
         })
 
         setTimeout(() => {
-            Axios.get("http://localhost:4000/positions").then((response) => {
+            PositionDataService.getAll().then((response) => {
                 if (response.status == 200){
                     dispatch({type: 'INITIAL_DATA', payload: response.data.data});
                 }

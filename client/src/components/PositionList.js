@@ -35,7 +35,7 @@ const PositionList = () => {
                                 <td>{position.assetName}</td>
                                 <td>{position.assetType}</td>
                                 <td>
-                                    <div className="actions">
+                                    <div>
                                         <Link
                                             to={`/edit/${position._id}`}
                                         >
