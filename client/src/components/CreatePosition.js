@@ -105,7 +105,7 @@ class CreatePosition extends Component {
                             <option value="pool">Pool</option>
                         </Form.Control>
                     </Form.Group>
-                    <Button variant="success" size="lg" block="block" type="submit">{this.saveLabel}}</Button>
+                    <Button variant="success" size="lg" block="block" type="submit">{this.saveLabel}</Button>
                     <Link to={"/list-position"} className="btn btn-danger btn-block">Cancel</Link>
                 </Form>
 
