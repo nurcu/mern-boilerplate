@@ -4,6 +4,6 @@ import {RiWallet3Line} from "react-icons/ri"
 
 export default class Connect extends Component {
   render(){
-      return <Button><RiWallet3Line/> Connect your waller</Button>;
+      return <Button><RiWallet3Line/>&emsp;Connect your wallet</Button>;
   }
 }
