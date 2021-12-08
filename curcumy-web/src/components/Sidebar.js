@@ -34,10 +34,12 @@ export default function Sidebar({logo, routes}) {
               changeNavSize("small");
           }}
         />
-        <NavItem navSize={navSize} icon={RiDashboardFill} title="Dashboard" active/>
-        <NavItem navSize={navSize} icon={RiProfileLine} title="Profile"/>
-        <NavItem navSize={navSize} icon={RiFolderChart2Line} title="Porfolios"/>
-        <NavItem navSize={navSize} icon={RiArrowLeftRightLine} title="Movements"/>
+        {
+          routes.map((r) =>
+          {
+            return <NavItem navSize={navSize} icon={r.icon} title={r.name}/>;
+          })
+        }
       </Flex>
       <Flex
         p="5%"
