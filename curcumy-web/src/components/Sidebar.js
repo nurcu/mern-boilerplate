@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import { Flex, Divider, HStack, Button, IconButton } from '@chakra-ui/react';
-import {RiTwitterLine, RiGithubLine, RiTelegramLine} from 'react-icons/ri';
-import {RiMenuLine,RiDashboardFill, RiProfileLine, RiArrowLeftRightLine, RiFolderChart2Line} from 'react-icons/ri';
+import {Flex, Divider, HStack, Button, IconButton } from '@chakra-ui/react';
+import {RiTwitterLine, RiGithubLine, RiTelegramLine, RiMenuLine} from 'react-icons/ri';
 import NavItem from './NavItem';
 
 
@@ -35,9 +34,9 @@ export default function Sidebar({logo, routes}) {
           }}
         />
         {
-          routes.map((r) =>
+          routes.map((r, k) =>
           {
-            return <NavItem navSize={navSize} icon={r.icon} title={r.name}/>;
+            return <NavItem navSize={navSize} icon={r.icon} title={r.name} path={r.path} key = {k}/>;
           })
         }
       </Flex>
@@ -50,9 +49,9 @@ export default function Sidebar({logo, routes}) {
       >
         <Divider display={navSize === "small" ? "none" : "flex"} />
         <HStack display={navSize === "small" ? "none" : "flex"}>
-          <Button size="sm" colorScheme='twitter' leftIcon={<RiTwitterLine />}/>
-          <Button size="sm" colorScheme='github' leftIcon={<RiGithubLine />}/>
-          <Button size="sm" colorScheme='telegram' leftIcon={<RiTelegramLine />}/>
+          <Button size="md" leftIcon={<RiTwitterLine />}/>
+          <Button size="md" leftIcon={<RiGithubLine />}/>
+          <Button size="md" leftIcon={<RiTelegramLine />}/>
         </HStack>
       </Flex>
 

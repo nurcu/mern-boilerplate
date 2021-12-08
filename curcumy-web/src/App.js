@@ -18,32 +18,32 @@ function App() {
   const mainPanel = React.createRef();
   return (
     <ChakraProvider className="App">
-      <Sidebar routes={routes} logo={logo}/>
-      <Box ref={mainPanel} w={{ base: "100%", xl: "calc(100% - 275px)"}}>
-        <Portal>
-          <Header/>
-        </Portal>
-        <HashRouter>
+      <HashRouter>
+        <Sidebar routes={routes} logo={logo} />
+        <Box ref={mainPanel} w={{ base: "100%", xl: "calc(100% - 275px)" }}>
+          <Portal>
+            <Header />
+          </Portal>
           <Switch>
-                {
-                routes.map((r, k) => {
-                  return (
+            {
+              routes.map((r, k) => {
+                return (
                   <Route
-                    path={r.layout + r.path}
+                    path={r.path}
                     component={r.component}
                     key={k}
                   />);
-                })
-                }
+              })
+            }
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
-        </HashRouter>
-        <Footer />
-        <Portal>
-          <FixedPlugin/>
-        </Portal>
-        <Configurator/>
-      </Box>
+          <Footer />
+          <Portal>
+            <FixedPlugin />
+          </Portal>
+          <Configurator />
+        </Box>
+      </HashRouter>
     </ChakraProvider>
   );
 }
