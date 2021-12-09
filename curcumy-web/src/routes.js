@@ -1,7 +1,7 @@
 // import
 import Dashboard from "./views/Dashboard";
 import Profile from "./views/Profile";
-import Portfolios from "./views/Portfolios";
+import Positions from "./views/Positions";
 import Movements from "./views/Movements";
 
 import {RiDashboardLine, RiProfileLine, RiFolderChart2Line, RiArrowLeftRightLine} from "react-icons/ri";
@@ -21,9 +21,9 @@ var dashRoutes = [
   },
   {
     path: "/positions",
-    name: "Portfolios",
+    name: "Positions",
     icon: RiFolderChart2Line,
-    component: Portfolios
+    component: Positions
   },
   {
     path: "/movements",
