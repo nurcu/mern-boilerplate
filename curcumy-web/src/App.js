@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { Drawer, DrawerContent, Box, Portal, useDisclosure, useColorModeValue } from '@chakra-ui/react';
+import { Drawer, DrawerContent, Box, useDisclosure, useColorModeValue } from '@chakra-ui/react';
 // Custom components
 import logo from './logo.svg';
 
