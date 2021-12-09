@@ -1,29 +1,43 @@
 import React from 'react';
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { ChakraProvider, Box, Portal } from '@chakra-ui/react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import { Drawer, DrawerContent, Box, Portal, useDisclosure, useColorModeValue } from '@chakra-ui/react';
 // Custom components
-import './App.css';
 import logo from './logo.svg';
 
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
-import Configurator from './components/Configurator';
-import FixedPlugin from './components/FixedPlugin';
-import Footer from './components/Footer';
 
 import routes from './routes';
 
-function App() {
 
-  const mainPanel = React.createRef();
+export default function App() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <ChakraProvider className="App">
-      <HashRouter>
-        <Sidebar routes={routes} logo={logo} />
-        <Box ref={mainPanel} w={{ base: "100%", xl: "calc(100% - 275px)" }}>
-          <Portal>
-            <Header />
-          </Portal>
+    <HashRouter>
+      <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+        <Sidebar 
+          logo={logo} 
+          routes={routes}
+          onClose={() => onClose}
+          display={{ base: 'none', md: 'block' }}
+        />
+        <Drawer
+          autoFocus={false}
+          isOpen={isOpen}
+          placement="left"
+          onClose={onClose}
+          returnFocusOnClose={false}
+          onOverlayClick={onClose}
+          size="full">
+          <DrawerContent>
+            <Sidebar 
+            logo={logo}
+            routes={routes}
+            onClose={() => onClose} />
+          </DrawerContent>
+        </Drawer>
+        <Header onOpen={onOpen} />
+        <Box ml={{ base: 0, md: 60 }} p="4">
           <Switch>
             {
               routes.map((r, k) => {
@@ -35,17 +49,9 @@ function App() {
                   />);
               })
             }
-            <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
-          <Footer />
-          <Portal>
-            <FixedPlugin />
-          </Portal>
-          <Configurator />
         </Box>
-      </HashRouter>
-    </ChakraProvider>
+      </Box>
+  </HashRouter>
   );
 }
-
-export default App;
