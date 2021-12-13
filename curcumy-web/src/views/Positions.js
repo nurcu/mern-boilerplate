@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PositionDataService from "../services/position.service";
 import {
   Flex,
@@ -8,33 +8,28 @@ import {
   Thead,
   Tr,
   Box,
-  useColorModeValue,
+  useColorModeValue
 } from "@chakra-ui/react";
 import PositionRow from "../components/PositionRow";
 
 
 
-export default class Positions extends Component {
-  constructor(props) {
-      super(props); 
-      this.state = {
-          rows: []
-      }
-  }
+export default function Positions() {
+  const [rows, setRows] = React.useState([]);
 
-  componentDidMount() {
-      PositionDataService.getAll()
-          .then(res => {
-              this.setState({
-                  rows: res.data.data
-              });
-          })
-          .catch(err => console.log(err))
-  }
+  React.useEffect(() => {
+    const fetchData = async () => {
+        PositionDataService.getAll()
+        .then(res => {
+            setRows(res.data.data);
+        })
+        .catch(err => console.log(err));
+    }
 
-  render() {
-    //const textColor = useColorModeValue("gray.700", "white");
-    const textColor="gray.500";
+    fetchData();
+  }, []);
+
+    const textColor = useColorModeValue("gray.700", "white");
   
     return (
       <Flex direction="column" pt={{ base: "120px", md: "75px" }}>
@@ -49,7 +44,7 @@ export default class Positions extends Component {
                 </Tr>
               </Thead>
               <Tbody>
-                {this.state.rows.map((row) => {
+                {rows.map((row) => {
                   return (
                     <PositionRow row={row}/>
                   );
@@ -59,5 +54,4 @@ export default class Positions extends Component {
         </Box>
       </Flex>
       );
-   }
 }
