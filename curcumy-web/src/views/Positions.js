@@ -1,29 +1,22 @@
 import React, { Component } from "react";
 import PositionDataService from "../services/position.service";
-import DataTable from "../components/DataTable";
+import {
+  Flex,
+  Table,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+  Box,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import PositionRow from "../components/PositionRow";
 
 
-class Positions extends Component {
+
+export default class Positions extends Component {
   constructor(props) {
       super(props); 
-      this.columns = [
-        {
-          Header: "Portfolio",
-          accessor: "portfolio"
-        },
-        {
-          Header: "Protocol",
-          accessor: "protocol"
-        },
-        {
-          Header: "AssetName",
-          accessor: "assetName",
-        },
-        {
-          Header: "AssetType",
-          accessor: "assetType"
-        }
-      ];
       this.state = {
           rows: []
       }
@@ -40,10 +33,31 @@ class Positions extends Component {
   }
 
   render() {
-      return (
-        <DataTable columns={this.columns} data={this.state.rows}/>
+    //const textColor = useColorModeValue("gray.700", "white");
+    const textColor="gray.500";
+  
+    return (
+      <Flex direction="column" pt={{ base: "120px", md: "75px" }}>
+        <Box overflowX={{ sm: "scroll", xl: "hidden" }}>
+            <Table variant="simple" color={textColor}>
+              <Thead>
+                <Tr my=".8rem" pl="0px" color="gray.400">
+                  <Th pl="0px" color="gray.400">Portfolio</Th>
+                  <Th color="gray.400">Protocol</Th>
+                  <Th color="gray.400">Asset</Th>
+                  <Th></Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {this.state.rows.map((row) => {
+                  return (
+                    <PositionRow row={row}/>
+                  );
+                })}
+              </Tbody>
+            </Table>
+        </Box>
+      </Flex>
       );
-  }
+   }
 }
-
-export default Positions;

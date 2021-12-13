@@ -16,7 +16,7 @@ export default function Sidebar({logo, routes, onClose, ...rest }) {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-      <Image borderRadius='full' boxSize='30px' src={logo} alt=''/>
+      <Image borderRadius='full' boxSize='32px' src={logo} alt=''/>
       <CloseButton
       display={{base: 'none', md: 'block'}}
       onClick={onClose} />

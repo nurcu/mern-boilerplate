@@ -49,6 +49,16 @@ export default function App() {
                   />);
               })
             }
+            {
+              routes.filter(r => r.detailPath).map((r, k) => {
+                return (
+                  <Route
+                    path={r.detailPath}
+                    component={r.detailComponent}
+                    key={"DTL" + k}
+                  />);
+              })
+            }
           </Switch>
         </Box>
       </Box>
