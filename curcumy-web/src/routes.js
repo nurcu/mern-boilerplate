@@ -25,7 +25,7 @@ var dashRoutes = [
     name: "Positions",
     icon: RiFolderChart2Line,
     component: Positions,
-    detailPath: "/edit-position",
+    detailPath: "/edit-position/:id",
     detailComponent: EditPosition
   },
   {

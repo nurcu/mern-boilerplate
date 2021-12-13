@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PositionDataService from "../services/position.service"
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     FormControl,
     FormLabel,
@@ -8,7 +8,7 @@ import {
     Radio,
     RadioGroup,
     HStack,
-   // FormErrorMessage,
+    // FormErrorMessage,
     FormHelperText,
     Button
 } from '@chakra-ui/react';
@@ -27,6 +27,7 @@ class EditPosition extends Component {
 
         // setting up state
         this.state = {
+            _is: null,
             portfolio: '',
             protocol: '',
             asset: '',
@@ -54,16 +55,19 @@ class EditPosition extends Component {
     onChangeAssetType(e) {
         this.setState({ assetType: e.target.value })
     }
+    
 
     componentDidMount() {
-        if (this.props.match.params) {
-            PositionDataService.get(this.props.match.params.id)
-                .then(res => {
-                    this.setState(res.data.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+        if (this.props.match.params && this.props.match.params.id) {
+            if (this.props.match.params.id !== "*") {
+                PositionDataService.get(this.props.match.params.id)
+                    .then(res => {
+                        this.setState(res.data.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            }
         }
     }
 
@@ -75,17 +79,17 @@ class EditPosition extends Component {
         if (this.props.match.params) {
 
             PositionDataService.update(this.props.match.params.id, this.state)
-            .then(res => {
-                if (res.status === 500) {
-                    console.log(res.data);
-                } else if (res.status === 200 && res.data.success === true) {
-                    console.log(res.data.id);
-                } else if (res.status === 200 && res.data.success !== true) {
-                    console.log("Error updated new data because : " + res.data.error);
-                } else {
-                    console.log("Server error with : " + res.data);
-                }
-            }).catch(err => console.warn(err));
+                .then(res => {
+                    if (res.status === 500) {
+                        console.log(res.data);
+                    } else if (res.status === 200 && res.data.success === true) {
+                        console.log(res.data.id);
+                    } else if (res.status === 200 && res.data.success !== true) {
+                        console.log("Error updated new data because : " + res.data.error);
+                    } else {
+                        console.log("Server error with : " + res.data);
+                    }
+                }).catch(err => console.warn(err));
         }
         else {
             PositionDataService.create(this.state)
@@ -129,18 +133,18 @@ class EditPosition extends Component {
                     <Input type="text" value={this.state.assetName} onChange={this.onChangeAssetName} />
                 </FormControl>
 
-                <FormControl>
+                <FormControl id="AssetType">
                     <FormLabel>Asset Type :</FormLabel>
-                    <RadioGroup defaultValue='Itachi'>
-                        <HStack spacing='24px'>
-                            <Radio value='token'>Token</Radio>
-                            <Radio value='pool'>Pool</Radio>
+                    <RadioGroup value={this.state.assetType} onChange={this.onChangeAssetType} defaultValue="token">
+                        <HStack>
+                            <Radio value="token">Token</Radio>
+                            <Radio value="pool">Pool</Radio>
                         </HStack>
                     </RadioGroup>
                     <FormHelperText>Select if the asset is a simple token or a token pool / liquidity pool.</FormHelperText>
                 </FormControl>
-                    <Button size="lg" type="submit">Save</Button>
-                    <Link to={"/positions"}>Cancel</Link>
+                <Button size="lg" type="submit">Save</Button>
+                <Link to={"/positions"}>Cancel</Link>
             </form>
         );
     }
