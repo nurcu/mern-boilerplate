@@ -1,9 +1,13 @@
 import {
+    VStack,
     HStack,
-    Stack,
-    Stat,
-    StatHelpText,
-    StatLabel
+    Input,
+    FormControl,
+    FormLabel,
+    Radio,
+    RadioGroup,
+    FormHelperText,
+    Button
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -44,7 +48,7 @@ export default function EditPosition(props) {
                 }
             );
         }
-    }, []);
+    }, [id]);
 
     // effect runs when user state is updated
     useEffect(() => {
@@ -85,43 +89,62 @@ export default function EditPosition(props) {
     }
 
     return (
-        <div className="card m-3">
-            {position && <>
-                <h5 className="card-header">React Hook Form - Set Form Values in useEffect Example</h5>
-                <div className="card-body">
+        <div>
+            {position &&
+                <VStack>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-group col-5">
-                            <label>Portfolio</label>
-                            <input name="portfolio" type="text" {...register('portfolio')} className="form-control" />
-                        </div>
-                        <div className="form-group col-5">
-                            <label>Protocol</label>
-                            <input name="protocol" type="text" {...register('protocol')} className="form-control" />
-                        </div>
-                        <div className="form-row">
-                            <div className="form-group col-5">
-                                <label>Asset</label>
-                                <input name="asset" type="text" {...register('asset')} className="form-control" />
-                            </div>
-                            <div className="form-group col-5">
-                                <label>Asset name</label>
-                                <input name="assetName" type="text" {...register('assetName')} className="form-control" />
-                            </div>
-                        </div>
-                        <div className="form-group col">
-                            <label>Asset Type</label>
-                            <select name="title" {...register('assetType')} className="form-control">
-                                <option value=""></option>
-                                <option value="token">Token</option>
-                                <option value="pool">Pool</option>
-                            </select>
-                        </div>
+                        <FormControl id="portfolio" isRequired>
+                            <FormLabel>portfolio</FormLabel>
+                            <Input name="portfolio" type="text" {...register("portfolio", { required: "Please enter portfolio" })} placeholder="Portfolio" />
+                            <FormHelperText>portfolio of the position.</FormHelperText>
+                        </FormControl>
+                        <FormControl id="protocol">
+                            <FormLabel>protocol</FormLabel>
+                            <Input name="protocol" type="text" {...register("protocol", { required: "Please enter protocol" })} placeholder="protocol" />
+                            <FormHelperText>protocol of the position.</FormHelperText>
+                        </FormControl>
+                        <FormControl id="asset">
+                            <FormLabel>asset</FormLabel>
+                            <Input name="asset" type="text" {...register("asset", { required: "Please enter asset" })} placeholder="asset" />
+                            <FormHelperText>asset of the position.</FormHelperText>
+                        </FormControl>
+                        <FormControl id="assetName">
+                            <FormLabel>assetName</FormLabel>
+                            <Input name="assetName" type="text" {...register("assetName", { required: "Please enter assetName" })} placeholder="assetName" />
+                            <FormHelperText>assetName of the position.</FormHelperText>
+                        </FormControl>
+                        <FormControl id='assetType'>
+                            <FormLabel as='legend'>Asset Type</FormLabel>
+                            <RadioGroup>
+                                <HStack spacing='24px'>
+                                    <Radio value='token' {...register("assetType")}>Token</Radio>
+                                    <Radio value='pool' {...register("assetType")}>Pool</Radio>
+                                </HStack>
+                            </RadioGroup>
+                            <FormHelperText>Select the asset type.</FormHelperText>
+                        </FormControl>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary mr-1">Submit</button>
-                            <button type="button" onClick={() => reset()} className="btn btn-secondary">Reset</button>
+                            <Button
+                                borderRadius="md"
+                                bg="cyan.600"
+                                _hover={{ bg: "cyan.200" }}
+                                variant="ghost"
+                                type="submit"
+                            >
+                                Submit
+                            </Button>
+                            <Button
+                                borderRadius="md"
+                                bg="cyan.300"
+                                _hover={{ bg: "cyan.100" }}
+                                variant="ghost"
+                                onClick={() => reset()}
+                            >
+                                Reset
+                            </Button>
                         </div>
                     </form>
-                </div></>
+                </VStack>
             }
             {!position &&
                 <div className="text-center p-3">
