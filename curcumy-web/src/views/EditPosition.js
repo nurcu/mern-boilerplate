@@ -7,7 +7,8 @@ import {
     Radio,
     RadioGroup,
     FormHelperText,
-    Button
+    Button,
+    useToast
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -17,6 +18,7 @@ import PositionDataService from "../services/position.service"
 export default function EditPosition(props) {
     // get functions to build form with useForm() hook
     const { register, handleSubmit, reset } = useForm();
+    const toast = useToast();
 
     // behavior
     const loc = props.location.pathname;
@@ -55,35 +57,40 @@ export default function EditPosition(props) {
         reset(position);
     }, [position, reset]);
 
-    function onSubmit(data) {
+    const onSubmit = (data) => {
         if (id) {
             PositionDataService.update(id, data)
-                .then(res => {
-                    if (res.status === 500) {
-                        console.log(res.data);
-                    } else if (res.status === 200 && res.data.success === true) {
-                        console.log(res.data.id);
-                    } else if (res.status === 200 && res.data.success !== true) {
-                        console.log("Error updated new data because : " + res.data.error);
-                    } else {
-                        console.log("Server error with : " + res.data);
+            .then(res => {
+                if (res.data && res.data.success) {
+                    toast({title: "Record updated", status: "success", duration: 3000, isClosable: true});
+                } else {
+                    toast({description: res.data.message, status: "warning", duration: 3000, isClosable: true});
+                    console.error(res.data);
+                }
+            }).catch(err =>
+                {
+                    if (err.response && err.response.data){
+                        toast({description: err.response.data.message, status: "error", duration: 3000, isClosable: true});
                     }
-                }).catch(err => console.warn(err));
+                    console.error(err);
+                });
         }
         else {
             PositionDataService.create(data)
-                .then(response => {
-                    if (response.status === 500) {
-                        console.log(response.data);
-                    } else if (response.status === 200 && response.data.success === true) {
-                        console.log(response.data.id);
-                    } else if (response.status === 200 && response.data.success !== true) {
-                        console.log("Error inserted new data because : " + response.data.error);
-                    } else {
-                        console.log("Server error with : " + response.data);
+            .then(res => {
+                if (res.data && res.data.success) {
+                    toast({title: "Record created", status: "success", duration: 3000, isClosable: true});
+                } else {
+                    toast({description: res.data.message, status: "warning", duration: 3000, isClosable: true});
+                    console.error(res.data);
+                }
+            }).catch(err =>
+                {
+                    if (err.response && err.response.data){
+                        toast({description: err.response.data.message, status: "error", duration: 3000, isClosable: true});
                     }
-                })
-                .catch(err => console.warn(err));
+                    console.error(err);
+                });
         }
         props.history.push('/positions');
     }
