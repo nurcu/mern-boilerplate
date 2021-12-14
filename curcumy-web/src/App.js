@@ -15,8 +15,8 @@ export default function App() {
   return (
     <HashRouter>
       <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-        <Sidebar 
-          logo={logo} 
+        <Sidebar
+          logo={logo}
           routes={routes}
           onClose={() => onClose}
           display={{ base: 'none', md: 'block' }}
@@ -30,10 +30,10 @@ export default function App() {
           onOverlayClick={onClose}
           size="full">
           <DrawerContent>
-            <Sidebar 
-            logo={logo}
-            routes={routes}
-            onClose={() => onClose} />
+            <Sidebar
+              logo={logo}
+              routes={routes}
+              onClose={() => onClose} />
           </DrawerContent>
         </Drawer>
         <Header onOpen={onOpen} />
@@ -52,16 +52,18 @@ export default function App() {
             {
               routes.filter(r => r.detailPath).map((r, k) => {
                 return (
-                  <Route
-                    path={r.detailPath}
-                    component={r.detailComponent}
-                    key={"DTL" + k}
-                  />);
+                  <>
+                    <Route
+                      path={r.detailPath}
+                      component={r.detailComponent}
+                      key={"DTL" + k}
+                    />
+                  </>);
               })
             }
           </Switch>
         </Box>
       </Box>
-  </HashRouter>
+    </HashRouter>
   );
 }

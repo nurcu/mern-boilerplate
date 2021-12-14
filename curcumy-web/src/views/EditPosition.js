@@ -14,38 +14,46 @@ export default function EditPosition(props) {
     // get functions to build form with useForm() hook
     const { register, handleSubmit, reset } = useForm();
 
+    // behavior
+    const loc = props.location.pathname;
+    const id = loc.lastIndexOf('/') === 0 ? null : loc.substring(loc.lastIndexOf('/') + 1);
     // user state for form
-    const [position, setPosition] = useState(null);
+    const [position, setPosition] = useState();
 
 
     // effect runs on component mount
     useEffect(() => {
-        const retrieveData = () => {
-            if (props.match.params && props.match.params.id) {
-                if (props.match.params.id !== "*") {
-                    return PositionDataService.get(props.match.params.id);
-                }
-            }
+        if (id) {
+            PositionDataService.get(id)
+                .then(
+                    res => {
+                        setPosition(res.data.data);
+                    }
+                ).catch(
+                    error => console.log(error)
+                );
         }
-        return retrieveData()
-            .then(res => {
-                setPosition(res.data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        else {
+            setPosition(
+                {
+                    portfolio: "",
+                    protocol: "",
+                    asset: "",
+                    assetName: "",
+                    assetType: "token"
+                }
+            );
+        }
     }, []);
 
     // effect runs when user state is updated
     useEffect(() => {
-        // reset form with user data
         reset(position);
     }, [position, reset]);
 
     function onSubmit(data) {
-        if (props.match.params || data._id) {
-
-            PositionDataService.update(props.match.params.id, data)
+        if (id) {
+            PositionDataService.update(id, data)
                 .then(res => {
                     if (res.status === 500) {
                         console.log(res.data);
@@ -73,14 +81,14 @@ export default function EditPosition(props) {
                 })
                 .catch(err => console.warn(err));
         }
-        props.history.push('/positions');        
+        props.history.push('/positions');
     }
 
     return (
         <div className="card m-3">
-            <h5 className="card-header">React Hook Form - Set Form Values in useEffect Example</h5>
-            <div className="card-body">
-                {position &&
+            {position && <>
+                <h5 className="card-header">React Hook Form - Set Form Values in useEffect Example</h5>
+                <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group col-5">
                             <label>Portfolio</label>
@@ -113,13 +121,13 @@ export default function EditPosition(props) {
                             <button type="button" onClick={() => reset()} className="btn btn-secondary">Reset</button>
                         </div>
                     </form>
-                }
-                {!position &&
-                    <div className="text-center p-3">
-                        <span className="spinner-border spinner-border-lg align-center"></span>
-                    </div>
-                }
-            </div>
+                </div></>
+            }
+            {!position &&
+                <div className="text-center p-3">
+                    <span className="spinner-border spinner-border-lg align-center"></span>
+                </div>
+            }
         </div>
     )
 }

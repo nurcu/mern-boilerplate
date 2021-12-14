@@ -57,7 +57,7 @@ export default function Positions() {
         </Table>
       </Box>
 
-      <Link to="/edit-position/*">
+      <Link to="/edit-position">
                     <Button p="0px" bg="transparent" variant="no-hover">
                         <Text
                             fontSize="md"
