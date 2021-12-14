@@ -17,17 +17,17 @@ export default function EditPosition(props) {
     // user state for form
     const [position, setPosition] = useState(null);
 
-    const retrieveData = () => {
-        if (props.match.params && props.match.params.id) {
-            if (props.match.params.id !== "*") {
-                return PositionDataService.get(props.match.params.id);
-            }
-        }
-    }
 
     // effect runs on component mount
     useEffect(() => {
-        retrieveData()
+        const retrieveData = () => {
+            if (props.match.params && props.match.params.id) {
+                if (props.match.params.id !== "*") {
+                    return PositionDataService.get(props.match.params.id);
+                }
+            }
+        }
+        return retrieveData()
             .then(res => {
                 setPosition(res.data.data);
             })
@@ -40,12 +40,40 @@ export default function EditPosition(props) {
     useEffect(() => {
         // reset form with user data
         reset(position);
-    }, [position]);
+    }, [position, reset]);
 
     function onSubmit(data) {
-        // display form data on submit
-        alert('SUCCESS!! :-)\n\n' + JSON.stringify(data, null, 4));
-        return false;
+        if (props.match.params || data._id) {
+
+            PositionDataService.update(props.match.params.id, data)
+                .then(res => {
+                    if (res.status === 500) {
+                        console.log(res.data);
+                    } else if (res.status === 200 && res.data.success === true) {
+                        console.log(res.data.id);
+                    } else if (res.status === 200 && res.data.success !== true) {
+                        console.log("Error updated new data because : " + res.data.error);
+                    } else {
+                        console.log("Server error with : " + res.data);
+                    }
+                }).catch(err => console.warn(err));
+        }
+        else {
+            PositionDataService.create(data)
+                .then(response => {
+                    if (response.status === 500) {
+                        console.log(response.data);
+                    } else if (response.status === 200 && response.data.success === true) {
+                        console.log(response.data.id);
+                    } else if (response.status === 200 && response.data.success !== true) {
+                        console.log("Error inserted new data because : " + response.data.error);
+                    } else {
+                        console.log("Server error with : " + response.data);
+                    }
+                })
+                .catch(err => console.warn(err));
+        }
+        props.history.push('/positions');        
     }
 
     return (
