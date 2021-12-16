@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Drawer, DrawerContent, Box, useDisclosure, useColorModeValue } from '@chakra-ui/react';
 // Custom components
 import logo from './logo.svg';
@@ -13,7 +13,7 @@ import routes from './routes';
 export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <HashRouter>
+    <Router>
       <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
         <Sidebar
           logo={logo}
@@ -64,6 +64,6 @@ export default function App() {
           </Switch>
         </Box>
       </Box>
-    </HashRouter>
+    </Router>
   );
 }

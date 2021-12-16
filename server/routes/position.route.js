@@ -7,18 +7,18 @@ const positionSchema = require('../models/position');
 
 const sendData = (res, err, data) => {
     if (err) {
-      console.error(err.message);
-      return res.status(500).json({ success: false, code: 1005, message: `${err.name}: ${err.message}` })
+      console.error(err);
+      return res.status(500).json({ success: false, code: err.code ?? 1005, message: err.message })
     } else {
       return res.status(200).json({ success: true, data: data })
     }
 }
 const sendId = (res, err, data) => {
     if (err) {
-      console.error(err.message);
-      return res.status(500).json({ success: false, code: 1005, message: `${err.name}: ${err.message}` })
+      console.error(err);
+      return res.status(500).json({ success: false, code: err.code ?? 1005, message: err.message })
     } else if (!data) {
-      return res.status(400).json({ success: false, code: 1004, message: "Warning: No data found." })
+      return res.status(400).json({ success: false, code: err.code ?? 1004, message: "No data found." })
     } else {
       return res.status(200).json({ success: true, id: data._id })
     }
