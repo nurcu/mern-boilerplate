@@ -4,7 +4,7 @@ import {RiTwitterLine, RiGithubLine, RiTelegramLine} from 'react-icons/ri';
 import NavItem from './NavItem';
 
 
-export default function Sidebar({logo, routes, onClose, ...rest }) {
+export default function Sidebar({logo, routes, ...rest }) {
   return (
     <Box
       transition="3s ease"
@@ -17,9 +17,6 @@ export default function Sidebar({logo, routes, onClose, ...rest }) {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
       <Image borderRadius='full' boxSize='32px' src={logo} alt=''/>
-      <CloseButton
-      display={{base: 'none', md: 'block'}}
-      onClick={onClose} />
       </Flex>
       {routes.map((link) => (
         <NavItem key={link.name} icon={link.icon} title={link.name} path={link.path}/>

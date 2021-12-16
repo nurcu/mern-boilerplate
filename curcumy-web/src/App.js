@@ -11,32 +11,19 @@ import routes from './routes';
 
 
 export default function App() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Router>
       <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
         <Sidebar
           logo={logo}
           routes={routes}
-          onClose={() => onClose}
           display={{ base: 'none', md: 'block' }}
         />
-        <Drawer
-          autoFocus={false}
-          isOpen={isOpen}
-          placement="left"
-          onClose={onClose}
-          returnFocusOnClose={false}
-          onOverlayClick={onClose}
-          size="full">
-          <DrawerContent>
-            <Sidebar
-              logo={logo}
-              routes={routes}
-              onClose={() => onClose} />
-          </DrawerContent>
-        </Drawer>
-        <Header onOpen={onOpen} />
+
+        <Sidebar
+          logo={logo}
+          routes={routes} />
+        <Header />
         <Box ml={{ base: 0, md: 60 }} p="4">
           <Switch>
             {
@@ -52,13 +39,11 @@ export default function App() {
             {
               routes.filter(r => r.detailPath).map((r, k) => {
                 return (
-                  <>
                     <Route
                       path={r.detailPath}
                       component={r.detailComponent}
                       key={"DTL" + k}
-                    />
-                  </>);
+                    />);
               })
             }
           </Switch>
