@@ -25,6 +25,7 @@ export default function App() {
               routes.map((r, k) => {
                 return (
                   <Route
+                    exact
                     path={r.path}
                     component={r.component}
                     key={k}

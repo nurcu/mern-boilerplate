@@ -16,7 +16,7 @@ export default function PositionRow({ row }) {
     const bgStatus = useColorModeValue("gray.400", "#1a202c");
     const colorStatus = useColorModeValue("white", "gray.400");
     return (
-        <Tr>
+        <Tr key={row._id}>
             <Td>
                 <Text
                     fontSize="md"
@@ -73,6 +73,5 @@ export default function PositionRow({ row }) {
                 </Link>
             </Td>
         </Tr>
-
     );
 }

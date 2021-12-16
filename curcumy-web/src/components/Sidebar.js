@@ -16,7 +16,7 @@ export default function Sidebar({ logo, routes, ...rest }) {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between"
         direction={{ base: 'row', md: 'column' }} >
-        <Image borderRadius='full' boxSize='32px' src={logo} alt='' />
+        <Image borderRadius='full' boxSize='32px' src={logo} alt='' mt='10px'/>
         {routes.map((link) => (
           <NavItem key={link.name} icon={link.icon} title={link.name} path={link.path} />
         ))}
