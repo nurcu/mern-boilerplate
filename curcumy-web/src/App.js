@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Drawer, DrawerContent, Box, useDisclosure, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 // Custom components
 import logo from './logo.svg';
 
@@ -14,11 +14,6 @@ export default function App() {
   return (
     <Router>
       <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-        <Sidebar
-          logo={logo}
-          routes={routes}
-          display={{ base: 'none', md: 'block' }}
-        />
 
         <Sidebar
           logo={logo}
