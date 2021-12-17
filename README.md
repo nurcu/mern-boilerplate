@@ -14,14 +14,17 @@ CRUD App using MERN Stack, it uses ReactJS for Front-end, NodeJS, Express For th
 
 
 # Technologies used
-[JS](https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg)
-[NodeJS](https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original.svg)
-[React](https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg)
-[MongoDB](https://github.com/devicons/devicon/blob/master/icons/mongodb/mongodb-original-wordmark.svg)
-[HTML5](https://github.com/devicons/devicon/blob/master/icons/html5/html5-plain-wordmark.svg)
-[CSS](https://github.com/devicons/devicon/blob/master/icons/css3/css3-plain-wordmark.svg)
-[Chakra UI](https://chakra-ui.com/public/logo.svg)
 
+<p align="center">
+	<img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" alt="react" width="70" height="70"/>
+	<img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" alt="js" width="70" height="70"/>
+	<img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original.svg" alt="mongo" width="70" height="70"/>
+	<img src="https://github.com/devicons/devicon/blob/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongo" width="70" height="70"/>
+	<img src="https://github.com/devicons/devicon/blob/master/icons/sass/sass-original.svg" alt="css3" width="70" height="70"/>
+	<img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-plain-wordmark.svg" alt="html5"  width="70" height="70"/>
+	<img src="https://github.com/devicons/devicon/blob/master/icons/css3/css3-plain-wordmark.svg" alt="css3" width="70" height="70"/>
+	
+</p>
 
 # Application structure
 - `https://github.com/loud-coypu/mern-boilerplate.git` to clone the repository
