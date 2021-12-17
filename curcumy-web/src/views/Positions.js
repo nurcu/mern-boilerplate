@@ -36,7 +36,7 @@ export default function Positions() {
 
   return (
     <Flex direction="column" pt={{ base: "120px", md: "75px" }}>
-      <Box overflowX={{ sm: "scroll", xl: "hidden" }}>
+      <Box>
         <Table variant="simple" color={textColor}>
           <Thead>
             <Tr my=".8rem" color="gray.400">

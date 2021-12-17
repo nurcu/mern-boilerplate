@@ -1,34 +1,32 @@
 import React from 'react';
-import { Flex, Image, Box, Divider, HStack, Button, useColorModeValue } from '@chakra-ui/react';
-import { RiTwitterLine, RiGithubLine, RiTelegramLine } from 'react-icons/ri';
+import { Flex, Box, Link } from '@chakra-ui/react';
+import { RiTwitterFill, RiGithubFill, RiTelegramFill } from 'react-icons/ri';
 import NavItem from './NavItem';
 
 
-export default function Sidebar({ logo, routes, ...rest }) {
+export default function Sidebar({ routes, ...rest }) {
   return (
-    <Box
-      bg={useColorModeValue('white', 'gray.900')}
-      borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between"
-        direction={{ base: 'row', md: 'column' }} >
-        <Image borderRadius='full' boxSize='32px' src={logo} alt='' mt='10px'/>
-        {routes.map((link) => (
-          <NavItem key={link.name} icon={link.icon} title={link.name} path={link.path} />
-        ))}
+    <Flex
+      h="25"
+      w="80"
+      alignItems="left"
+      ml="5"
+      justifyContent="space-between"
+      direction={{ base: 'row', md: 'column' }} >
+      {routes.map((link) => (
+        <NavItem key={link.name} icon={link.icon} title={link.name} path={link.path} />
+      ))}
 
-      </Flex>
-      <Divider display={{ base: 'none', md: 'flex' }} />
-      <HStack
-        display={{ base: 'none', md: 'flex' }} >
-        <Button size="md" leftIcon={<RiTwitterLine />} />
-        <Button size="md" leftIcon={<RiGithubLine />} />
-        <Button size="md" leftIcon={<RiTelegramLine />} />
-      </HStack>
-    </Box>
+      <Box display={{ base: 'none', md: 'flex' }}>
+        <Flex mt="100" direction="row" mx="10" justifyContent="space-between" w="50%">
+          <Link href='https://twitter.com/curcumy' isExternal><RiTwitterFill color="#f1c68c" size="24px" />
+          </Link>
+          <Link href='https://bit.ly/3wJB3hl' isExternal><RiGithubFill color="#f1c68c" size="24px" />
+          </Link>
+          <Link href='https://t.me/curcumy' isExternal><RiTelegramFill color="#f1c68c" size="24px" />
+          </Link>
+        </Flex>
+      </Box>
+    </Flex>
   );
 };

@@ -1,21 +1,28 @@
 import React from 'react';
-import {Flex, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Spacer, Image } from '@chakra-ui/react';
 import ConnectButton from './ConnectButton';
 
-export default function Header({ ...rest }) {
+export default function Header({ logo, ...rest }) {
 
   return (
     <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 4 }}
+      px="4"
+      position="sticky"
+      top="0"
       height="20"
+      zIndex="1"
       alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent={{ base: 'space-between', md: 'flex-end' }}
+      justifyContent={{ base: "space-between", md: "flex-end" }}
       {...rest}>
-      <ConnectButton/>
+
+      <Image
+        display={{ base: "none", md: "flex" }}
+        boxSize='32px'
+        src={logo}
+        alt=''
+        m='20px' />
+      <Spacer />
+      <ConnectButton />
     </Flex>
   );
 };
