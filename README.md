@@ -14,9 +14,6 @@ CRUD App using MERN Stack, it uses ReactJS for Front-end, NodeJS, Express For th
 
 
 # Technologies used
-<p align="center">
-	<img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" alt="react" width="70" height="70"/>
-
 [JS](https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg)
 [NodeJS](https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original.svg)
 [React](https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg)
